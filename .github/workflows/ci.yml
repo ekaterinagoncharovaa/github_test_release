@@ -28,5 +28,14 @@ jobs:
           sudo mv allurectl /usr/local/bin/allurectl
           allurectl --version
 
-      - name: Run tests
-        run: uv run --with pytest pytest test_operations.py -v
+      - name: Run tests with allurectl watch
+        env:
+          ALLURE_ENDPOINT: ${{ secrets.ALLURE_ENDPOINT }}
+          ALLURE_TOKEN: ${{ secrets.ALLURE_TOKEN }}
+          ALLURE_PROJECT_ID: ${{ secrets.ALLURE_PROJECT_ID }}
+          ALLURE_LAUNCH_NAME: "CI – ${{ github.ref_name }} @ ${{ github.sha }}"
+          ALLURE_RESULTS: allure-results
+        run: >-
+          allurectl watch --results allure-results --
+          uv run --with pytest --with allure-pytest
+          pytest test_operations.py -v --alluredir=allure-results
