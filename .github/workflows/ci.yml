@@ -22,7 +22,7 @@ jobs:
         uses: astral-sh/setup-uv@v4
 
       - name: Install allurectl
-        uses: allure-framework/allurectl@v2
+        uses: allure-framework/allurectl@2.18.0
 
       - name: Run tests
         run: uv run --with pytest pytest test_operations.py -v
