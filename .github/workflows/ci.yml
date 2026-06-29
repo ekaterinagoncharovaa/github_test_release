@@ -22,7 +22,11 @@ jobs:
         uses: astral-sh/setup-uv@v4
 
       - name: Install allurectl
-        uses: allure-framework/allurectl@2.18.0
+        run: |
+          curl -fsSL https://github.com/allure-framework/allurectl/releases/download/2.18.0/allurectl_linux_amd64 -o allurectl
+          chmod +x allurectl
+          sudo mv allurectl /usr/local/bin/allurectl
+          allurectl --version
 
       - name: Run tests
         run: uv run --with pytest pytest test_operations.py -v
