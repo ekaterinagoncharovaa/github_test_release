@@ -10,6 +10,9 @@ on:
       ALLURE_JOB_RUN_ID:
         description: "Allure TestOps job run ID for selective rerun"
         required: false
+      ALLURE_USERNAME:
+        description: "Allure TestOps service parameter. Leave blank."
+        required: false
 
 jobs:
   test:
