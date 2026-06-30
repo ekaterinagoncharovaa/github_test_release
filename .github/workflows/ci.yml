@@ -26,12 +26,12 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@v4
 
-      - name: Install allurectl
-        run: |
-          curl -fsSL https://github.com/allure-framework/allurectl/releases/download/2.18.0/allurectl_linux_amd64 -o allurectl
-          chmod +x allurectl
-          sudo mv allurectl /usr/local/bin/allurectl
-          allurectl --version
+      - name: install and configure allurectl using GH Action
+        uses: allure-framework/setup-allurectl@v1
+        with:
+          allure-endpoint: https://testing.testops.cloud
+          allure-token: ${{ secrets.ALLURE_TOKEN }}
+          allure-project-id: 15195
 
       - name: Run tests with allurectl watch
         env:
