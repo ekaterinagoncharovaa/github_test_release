@@ -5,6 +5,11 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
+    inputs:
+      ALLURE_JOB_RUN_ID:
+        description: "Allure TestOps job run ID for selective rerun"
+        required: false
 
 jobs:
   test:
@@ -34,6 +39,7 @@ jobs:
           ALLURE_TOKEN: ${{ secrets.ALLURE_TOKEN }}
           ALLURE_PROJECT_ID: ${{ secrets.ALLURE_PROJECT_ID }}
           ALLURE_LAUNCH_NAME: "CI – ${{ github.ref_name }} @ ${{ github.sha }}"
+          ALLURE_JOB_RUN_ID: ${{ github.event.inputs.ALLURE_JOB_RUN_ID }}
           ALLURE_RESULTS: allure-results
         run: >-
           allurectl watch --results allure-results --
